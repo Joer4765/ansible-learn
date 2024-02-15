@@ -1,0 +1,10 @@
+---
+- name: Webservers setup
+  hosts: webservers
+  task:
+    name: Install httpd
+    ansible.builtin.yum:
+      name: httpd
+      state: persist
+      
+
