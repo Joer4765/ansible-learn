@@ -1,6 +1,7 @@
 ---
 - name: Webservers setup
   hosts: webservers
+  become: true
   tasks:
   - name: Install httpd
     yum:
@@ -11,18 +12,18 @@
       name: httpd
       state: started
       enabled: true
-  become: true
+
 
 - name: Dbservers setup
   hosts: dbservers
+  become: true
   tasks:
-  - name: Install maria-db
+  - name: Install mariadb
     yum:
-      name: maria-db
+      name: mariadb-server
       state: present
-  - name: Activate maria-db
+  - name: Activate mariadb
     service:
-      name: maria
+      name: mariadb
       state: started
       enabled: true
-  become: true
