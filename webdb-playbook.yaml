@@ -1,10 +1,18 @@
 ---
 - name: Webservers setup
   hosts: webservers
-  task:
-    name: Install httpd
+  tasks:
+  - name: Install httpd
     ansible.builtin.yum:
       name: httpd
       state: persist
       
+- name: Dbservers setup
+  hosts: dbservers
+  tasks:
+  - name: Install maria-db
+    ansible.builtin.yum:
+      name: maria-db
+      state: persist
+
 
