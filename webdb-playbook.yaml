@@ -6,7 +6,12 @@
     ansible.builtin.yum:
       name: httpd
       state: persist
-      
+  - name: Activate httpd
+    ansible.builtin.service:
+      name: httpd
+      state: started
+      enabled: true
+
 - name: Dbservers setup
   hosts: dbservers
   tasks:
@@ -14,5 +19,10 @@
     ansible.builtin.yum:
       name: maria-db
       state: persist
+  - name: Activate maria-db
+    ansible.builtin.service:
+      name: maria
+      state: started
+      enabled: true
 
 
