@@ -3,26 +3,26 @@
   hosts: webservers
   tasks:
   - name: Install httpd
-    ansible.builtin.yum:
+    yum:
       name: httpd
-      state: persist
+      state: present
   - name: Activate httpd
-    ansible.builtin.service:
+    service:
       name: httpd
       state: started
       enabled: true
+  become: true
 
 - name: Dbservers setup
   hosts: dbservers
   tasks:
   - name: Install maria-db
-    ansible.builtin.yum:
+    yum:
       name: maria-db
-      state: persist
+      state: present
   - name: Activate maria-db
-    ansible.builtin.service:
+    service:
       name: maria
       state: started
       enabled: true
-
-
+  become: true
