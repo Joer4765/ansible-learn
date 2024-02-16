@@ -1,0 +1,29 @@
+---
+- name: Dbservers setup
+  hosts: dbservers
+  become: true
+  tasks:
+  - name: Install mariadb
+    yum:
+      name: mariadb-server
+      state: present
+  - name: Activate mariadb
+    service:
+      name: mariadb
+      state: started
+      enabled: true
+  - name: Install PyMySQL
+    yum:
+      name: python3-PyMySQL
+      state: present
+  - name: Create a new database with name 'accounts'
+    community.mysql.mysql_db:
+      name: accounts
+      state: present
+      login_unix_socket: /var/lib/mysql/mysql.sock
+  - name: Create database user with name 'admin' and password '12345' with all database privileges
+    community.mysql.mysql_user:
+      name: admin
+      password: 12345
+      priv: '*.*:ALL'
+      state: present
