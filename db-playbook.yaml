@@ -27,3 +27,4 @@
       password: 12345
       priv: '*.*:ALL'
       state: present
+      login_unix_socket: /var/lib/mysql/mysql.sock
