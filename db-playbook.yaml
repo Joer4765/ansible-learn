@@ -1,8 +1,16 @@
 ---
 - name: Dbservers setup
   hosts: dbservers
-  become: true
+  vars:
+    db_name: titan
+    db_user: current
+    db_pass: tesla
+    db_socket_path: /var/lib/mysql/mysql.sock
   tasks:
+  - dubug:
+      msg: "The db name is {{db_name}}"
+  - debug:
+      var: db_user
   - name: Install mariadb
     yum:
       name: mariadb-server
@@ -16,15 +24,18 @@
     yum:
       name: python3-PyMySQL
       state: present
-  - name: Create a new database with name 'accounts'
+  - name: Create a new database
     community.mysql.mysql_db:
-      name: accounts
+      name: "{{db_name}}"
       state: present
-      login_unix_socket: /var/lib/mysql/mysql.sock
-  - name: Create database user with name 'admin' and password '12345' with all database privileges
+      login_unix_socket: "{{db_socket_path}}"
+  - name: Create database user
     community.mysql.mysql_user:
-      name: admin
-      password: 12345
+      name: "{{db_user}}"
+      password: "{{db_pass}}"
       priv: '*.*:ALL'
       state: present
-      login_unix_socket: /var/lib/mysql/mysql.sock
+      login_unix_socket: "{{db_socket_path}}"
+    register: dbout
+  - debug:
+      var: dbout
