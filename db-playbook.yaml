@@ -1,11 +1,6 @@
 ---
 - name: Dbservers setup
   hosts: dbservers
-  vars:
-    db_name: titan
-    db_user: current
-    db_pass: tesla
-    db_socket_path: /var/lib/mysql/mysql.sock
   tasks:
   - debug:
       msg: "The db name is {{db_name}}"
@@ -36,6 +31,6 @@
       priv: '*.*:ALL'
       state: present
       login_unix_socket: "{{db_socket_path}}"
-    register: dbout
+    register: db_out
   - debug:
-      var: dbout
+      var: db_out

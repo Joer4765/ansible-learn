@@ -1,0 +1,4 @@
+db_name: titan
+db_user: current
+db_pass: tesla
+db_socket_path: /var/lib/mysql/mysql.sock
